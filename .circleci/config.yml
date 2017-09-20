@@ -12,7 +12,7 @@ jobs:
           command: |
             apk add --no-cache --update bash
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            chmod +x ~/project/build_all_images.sh
+            chmod +x ~/project/docker/build_all_images.sh
       - run:
           name: Build images
           no_output_timeout: "60m"
@@ -22,7 +22,7 @@ jobs:
             if "$BUILD_IMAGES"; then
               echo "Building images ..."
               cd ~/project
-              ./build_all_images.sh
+              ./docker/build_all_images.sh
             else
               echo "Not building images."
             fi
