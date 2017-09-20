@@ -21,7 +21,8 @@ jobs:
 
             if "$BUILD_IMAGES"; then
               echo "Building images ..."
-              ~/project/build_all_images.sh
+              cd ~/project
+              ./build_all_images.sh
             else
               echo "Not building images."
             fi

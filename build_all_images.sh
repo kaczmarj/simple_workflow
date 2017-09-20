@@ -29,7 +29,7 @@ case ${CIRCLE_NODE_INDEX} in
       # Retry building.
       # https://github.com/nipy/nipype/blob/ad085ae86c9dbb97aedb316562ea31f79c5923fe/circle.yml
       e=1 && for i in {1..5}; do
-        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" - < $file && e=0 && break || sleep 15;
+        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" -f $file . && e=0 && break || sleep 15;
       done && [ "$e" -eq "0" ]
 
       docker push "${DOCKERHUB_USER_REPO}:${tag}"
@@ -41,7 +41,7 @@ case ${CIRCLE_NODE_INDEX} in
       # Retry building.
       # https://github.com/nipy/nipype/blob/ad085ae86c9dbb97aedb316562ea31f79c5923fe/circle.yml
       e=1 && for i in {1..5}; do
-        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" - < $file && e=0 && break || sleep 15;
+        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" -f $file . && e=0 && break || sleep 15;
       done && [ "$e" -eq "0" ]
 
       docker push "${DOCKERHUB_USER_REPO}:${tag}"
@@ -53,7 +53,7 @@ case ${CIRCLE_NODE_INDEX} in
       # Retry building.
       # https://github.com/nipy/nipype/blob/ad085ae86c9dbb97aedb316562ea31f79c5923fe/circle.yml
       e=1 && for i in {1..5}; do
-        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" - < $file && e=0 && break || sleep 15;
+        docker build -t "${DOCKERHUB_USER_REPO}:${tag}" -f $file . && e=0 && break || sleep 15;
       done && [ "$e" -eq "0" ]
 
       docker push "${DOCKERHUB_USER_REPO}:${tag}"
