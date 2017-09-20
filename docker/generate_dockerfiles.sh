@@ -23,7 +23,8 @@ for base in $BASE_IMAGES; do
     file_suffix2="$(echo "$flag" | sed 's/--\(.*\)\ /\1/' | sed 's/version=/-/g')"
     filename="${DIR}/Dockerfile.${file_suffix1}_${file_suffix2}"
 
-    docker run --rm kaczmarj/neurodocker:v0.3.0 generate \
+    # docker run --rm kaczmarj/neurodocker:v0.3.0 generate \
+    neurodocker generate --no-check-urls \
     --base "$base" --pkg-manager "$pkg_manager" \
     --workdir /opt/repronim/simple_workflow/scripts \
     --copy *.py environment.yml ./ \
