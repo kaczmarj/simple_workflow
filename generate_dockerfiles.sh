@@ -28,7 +28,7 @@ for base in $BASE_IMAGES; do
     --copy *.py environment.yml /opt/repronim/ \
     --copy expected_output expected_output \
     --miniconda env_name=bh_demo \
-    --run "conda env create -q --force --file /opt/repronim/environment.yml" \
+    --run "conda env create -q --force --file /opt/repronim/environment.yml && conda clean -tipsy" \
     $flag \
     --workdir /opt/repronim/simple_workflow/scripts > $filename
 
