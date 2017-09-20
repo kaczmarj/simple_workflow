@@ -5,7 +5,7 @@
 # pull request on our GitHub repository:
 #     https://github.com/kaczmarj/neurodocker
 #
-# Timestamp: 2017-09-20 14:09:42
+# Timestamp: 2017-09-20 14:38:51
 
 FROM centos:7.4.1708
 
@@ -57,7 +57,7 @@ RUN conda create -y -q --name bh_demo \
     && sync && conda clean -tipsy && sync
 
 # User-defined instruction
-RUN conda env create --force --file /opt/repronim/environment.yml
+RUN conda env create -q --force --file /opt/repronim/environment.yml
 
 #-----------------------------------------------------------
 # Install FSL v5.0.9
@@ -115,7 +115,7 @@ RUN echo '{ \
     \n    ], \
     \n    [ \
     \n      "run", \
-    \n      "conda env create --force --file /opt/repronim/environment.yml" \
+    \n      "conda env create -q --force --file /opt/repronim/environment.yml" \
     \n    ], \
     \n    [ \
     \n      "fsl", \
@@ -128,6 +128,6 @@ RUN echo '{ \
     \n      "/opt/repronim/simple_workflow/scripts" \
     \n    ] \
     \n  ], \
-    \n  "generation_timestamp": "2017-09-20 14:09:42", \
+    \n  "generation_timestamp": "2017-09-20 14:38:51", \
     \n  "neurodocker_version": "0.3.0" \
     \n}' > /neurodocker/neurodocker_specs.json

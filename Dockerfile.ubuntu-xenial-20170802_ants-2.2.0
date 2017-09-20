@@ -5,7 +5,7 @@
 # pull request on our GitHub repository:
 #     https://github.com/kaczmarj/neurodocker
 #
-# Timestamp: 2017-09-20 14:09:54
+# Timestamp: 2017-09-20 14:39:03
 
 FROM ubuntu:xenial-20170802
 
@@ -59,7 +59,7 @@ RUN conda create -y -q --name bh_demo \
     && sync && conda clean -tipsy && sync
 
 # User-defined instruction
-RUN conda env create --force --file /opt/repronim/environment.yml
+RUN conda env create -q --force --file /opt/repronim/environment.yml
 
 #-------------------
 # Install ANTs 2.2.0
@@ -107,7 +107,7 @@ RUN echo '{ \
     \n    ], \
     \n    [ \
     \n      "run", \
-    \n      "conda env create --force --file /opt/repronim/environment.yml" \
+    \n      "conda env create -q --force --file /opt/repronim/environment.yml" \
     \n    ], \
     \n    [ \
     \n      "ants", \
@@ -120,6 +120,6 @@ RUN echo '{ \
     \n      "/opt/repronim/simple_workflow/scripts" \
     \n    ] \
     \n  ], \
-    \n  "generation_timestamp": "2017-09-20 14:09:54", \
+    \n  "generation_timestamp": "2017-09-20 14:39:03", \
     \n  "neurodocker_version": "0.3.0" \
     \n}' > /neurodocker/neurodocker_specs.json
