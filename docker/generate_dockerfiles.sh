@@ -25,12 +25,13 @@ for base in $BASE_IMAGES; do
 
     docker run --rm kaczmarj/neurodocker:v0.3.0 generate \
     --base "$base" --pkg-manager "$pkg_manager" \
-    --copy *.py environment.yml /opt/repronim/simple_workflow/scripts/ \
+    --workdir /opt/repronim/simple_workflow/scripts \
+    --copy *.py environment.yml ./ \
     --copy expected_output expected_output \
     --miniconda env_name=bh_demo \
-    --run "conda env create -q --force --file /opt/repronim/simple_workflow/scripts/environment.yml && conda clean -tipsy" \
+    --run "conda env create -q --force --file environment.yml && conda clean -tipsy" \
     $flag \
-    --workdir /opt/repronim/simple_workflow/scripts > $filename
+     > $filename
 
   done
 done

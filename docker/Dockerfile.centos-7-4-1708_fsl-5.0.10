@@ -5,7 +5,7 @@
 # pull request on our GitHub repository:
 #     https://github.com/kaczmarj/neurodocker
 #
-# Timestamp: 2017-09-20 16:02:18
+# Timestamp: 2017-09-20 17:22:37
 
 FROM centos:7.4.1708
 
@@ -30,7 +30,9 @@ RUN yum install -y -q  \
     && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 ENTRYPOINT ["/neurodocker/startup.sh"]
 
-COPY ["check_output.py", "run_demo_workflow.py", "environment.yml", "/opt/repronim/simple_workflow/scripts/"]
+WORKDIR /opt/repronim/simple_workflow/scripts
+
+COPY ["check_output.py", "run_demo_workflow.py", "environment.yml", "./"]
 
 COPY ["expected_output", "expected_output"]
 
@@ -57,7 +59,7 @@ RUN conda create -y -q --name bh_demo \
     && sync && conda clean -tipsy && sync
 
 # User-defined instruction
-RUN conda env create -q --force --file /opt/repronim/simple_workflow/scripts/environment.yml && conda clean -tipsy
+RUN conda env create -q --force --file environment.yml && conda clean -tipsy
 
 #-----------------------------------------------------------
 # Install FSL v5.0.10
@@ -79,8 +81,6 @@ RUN yum install -y -q bc \
 ENV FSLDIR=/opt/fsl \
     PATH=/opt/fsl/bin:$PATH
 
-WORKDIR /opt/repronim/simple_workflow/scripts
-
 #--------------------------------------
 # Save container specifications to JSON
 #--------------------------------------
@@ -93,12 +93,16 @@ RUN echo '{ \
     \n      "centos:7.4.1708" \
     \n    ], \
     \n    [ \
+    \n      "workdir", \
+    \n      "/opt/repronim/simple_workflow/scripts" \
+    \n    ], \
+    \n    [ \
     \n      "copy", \
     \n      [ \
     \n        "check_output.py", \
     \n        "run_demo_workflow.py", \
     \n        "environment.yml", \
-    \n        "/opt/repronim/simple_workflow/scripts/" \
+    \n        "./" \
     \n      ] \
     \n    ], \
     \n    [ \
@@ -116,19 +120,15 @@ RUN echo '{ \
     \n    ], \
     \n    [ \
     \n      "run", \
-    \n      "conda env create -q --force --file /opt/repronim/simple_workflow/scripts/environment.yml && conda clean -tipsy" \
+    \n      "conda env create -q --force --file environment.yml && conda clean -tipsy" \
     \n    ], \
     \n    [ \
     \n      "fsl", \
     \n      { \
     \n        "version": "5.0.10" \
     \n      } \
-    \n    ], \
-    \n    [ \
-    \n      "workdir", \
-    \n      "/opt/repronim/simple_workflow/scripts" \
     \n    ] \
     \n  ], \
-    \n  "generation_timestamp": "2017-09-20 16:02:18", \
+    \n  "generation_timestamp": "2017-09-20 17:22:37", \
     \n  "neurodocker_version": "0.3.0" \
     \n}' > /neurodocker/neurodocker_specs.json
