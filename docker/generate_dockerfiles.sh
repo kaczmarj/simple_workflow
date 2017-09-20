@@ -8,7 +8,8 @@ set -x
 DIR="$(dirname "$0")"
 
 BASE_IMAGES="centos:7.4.1708  debian:stretch-20170907 ubuntu:xenial-20170802"
-FLAGS=("--ants version=2.2.0" "--ants version=2.1.0" "--fsl version=5.0.10" "--fsl version=5.0.9")
+# FLAGS=("--ants version=2.2.0" "--ants version=2.1.0" "--fsl version=5.0.10" "--fsl version=5.0.0")
+FLAGS=("--fsl version=5.0.0")
 
 for base in $BASE_IMAGES; do
   for flag in "${FLAGS[@]}"; do

@@ -5,7 +5,7 @@
 # pull request on our GitHub repository:
 #     https://github.com/kaczmarj/neurodocker
 #
-# Timestamp: 2017-09-20 13:29:52
+# Timestamp: 2017-09-20 13:52:13
 
 FROM centos:7.4.1708
 
@@ -61,14 +61,24 @@ RUN conda create -y -q --name bh_demo \
 # User-defined instruction
 RUN conda env create -q --force --file environment.yml && conda clean -tipsy
 
-#-------------------
-# Install ANTs 2.2.0
-#-------------------
-RUN echo "Downloading ANTs ..." \
-    && curl -sSL --retry 5 https://dl.dropbox.com/s/2f4sui1z6lcgyek/ANTs-Linux-centos5_x86_64-v2.2.0-0740f91.tar.gz \
-    | tar zx -C /opt
-ENV ANTSPATH=/opt/ants \
-    PATH=/opt/ants:$PATH
+#-----------------------------------------------------------
+# Install FSL v5.0.0
+# FSL is non-free. If you are considering commerical use
+# of this Docker image, please consult the relevant license:
+# https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Licence
+#-----------------------------------------------------------
+RUN yum install -y -q bc \
+    && yum clean packages \
+    && rm -rf /var/cache/yum/* /tmp/* /var/tmp/* \
+    && echo "Downloading FSL ..." \
+    && curl -sSL https://fsl.fmrib.ox.ac.uk/fsldownloads/oldversions/fsl-5.0.0-centos5_64.tar.gz \
+    | tar zx -C /opt \
+    && sed -i '$iecho Some packages in this Docker container are non-free' $ND_ENTRYPOINT \
+    && sed -i '$iecho If you are considering commercial use of this container, please consult the relevant license:' $ND_ENTRYPOINT \
+    && sed -i '$iecho https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Licence' $ND_ENTRYPOINT \
+    && sed -i '$isource $FSLDIR/etc/fslconf/fsl.sh' $ND_ENTRYPOINT
+ENV FSLDIR=/opt/fsl \
+    PATH=/opt/fsl/bin:$PATH
 
 #--------------------------------------
 # Save container specifications to JSON
@@ -112,12 +122,12 @@ RUN echo '{ \
     \n      "conda env create -q --force --file environment.yml && conda clean -tipsy" \
     \n    ], \
     \n    [ \
-    \n      "ants", \
+    \n      "fsl", \
     \n      { \
-    \n        "version": "2.2.0" \
+    \n        "version": "5.0.0" \
     \n      } \
     \n    ] \
     \n  ], \
-    \n  "generation_timestamp": "2017-09-20 13:29:52", \
+    \n  "generation_timestamp": "2017-09-20 13:52:13", \
     \n  "neurodocker_version": "0.3.0-3-gfe497b2" \
     \n}' > /neurodocker/neurodocker_specs.json
