@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:17.06.1-ce-git
+    parallelism: 3
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Setup
+          command: |
+            apk add --no-cache --update bash
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            chmod +x ~/project/build_all_images.sh
+      - run:
+          name: Build images
+          no_output_timeout: "60m"
+          command: |
+            BUILD_IMAGES=true  # enable/disable image builds.
+
+            if "$BUILD_IMAGES"; then
+              echo "Building images ..."
+              ~/project/build_all_images.sh
+            else
+              echo "Not building images."
+            fi
+
+workflows:
+  version: 2
+  build_images:
+    jobs:
+      - build

@@ -26,12 +26,12 @@ Now you can run the image as follows to test on 1 participant's data:
 ```bash
 docker run -it --rm -v $PWD/output:/opt/repronim/simple_workflow/scripts/output \
    repronim/simple_workflow:latest run_demo_workflow.py \
-   --key 11an55u9t2TAf0EV2pHN0vOd8Ww2Gie-tHp9xGULh_dA -n 1 
+   --key 11an55u9t2TAf0EV2pHN0vOd8Ww2Gie-tHp9xGULh_dA -n 1
 docker run -it --rm -v $PWD/output:/opt/repronim/simple_workflow/scripts/output \
    repronim/simple_workflow:latest check_output.py --ignoremissing
 ```
 
-You can extend this to all participants as follows. 
+You can extend this to all participants as follows.
 
 ```bash
 docker run -it --rm -v $PWD/output:/opt/repronim/simple_workflow/scripts/output \
@@ -55,13 +55,13 @@ The script will check for availability of the following:
 curl -Ok https://raw.githubusercontent.com/ReproNim/simple_workflow/3a64f3ffdf174e7c8970de620aa62a9167e3134f/Simple_Prep.sh
 ```
 
-#### Setup the environment. 
+#### Setup the environment.
 
 This will setup a complete environment within a directory
-called simple_workflow. It will not add anything to your existing environment. 
+called simple_workflow. It will not add anything to your existing environment.
 
-Note: Because of some limitations with the underlying packages, it may determine 
-that your current working directory path is too long and will ask you to move to 
+Note: Because of some limitations with the underlying packages, it may determine
+that your current working directory path is too long and will ask you to move to
 a shorter directory path.
 
 ```bash
@@ -118,7 +118,7 @@ you would like to browse it, please "knock" first by running
 
 #### Generate an environment
 
-For the current test data, we generated an environment based on Debian jessie 
+For the current test data, we generated an environment based on Debian jessie
 release with FSL 5.0.9 that was available in April 2017:
 
 ```bash
@@ -128,13 +128,13 @@ which will generate a local docker image `repronim:simple_prep_${USER}_jessie_20
 (`${USER}` will correspond to your user name), with all necessary for computation
 components installed.
 
-You can then run the demo using the docker image run commands above by replacing 
+You can then run the demo using the docker image run commands above by replacing
 `repronim/simple_workflow:latest` with `repronim:simple_prep_${USER}_jessie_20170410T000000Z`
 
 ##### Changing the FSL version
 
 You can also generate an environment based on Debian jessie
-release with FSL 5.0.8-3 as it was available in March of 2015 by 
+release with FSL 5.0.8-3 as it was available in March of 2015 by
 simply changing the timestamp:
 
 ```bash
@@ -145,12 +145,12 @@ which will generate a local docker image `repronim:simple_prep_${USER}_jessie_20
 (`${USER}` will correspond to your user name), with all necessary for computation
 components installed.
 
-You can then run the demo using the docker image run commands above by replacing 
+You can then run the demo using the docker image run commands above by replacing
 `repronim/simple_workflow:latest` with `repronim:simple_prep_${USER}_jessie_20150306T060524Z`
 
 ### 4. Other containers
 
-You can also use [Singularity](http://singularity.lbl.gov/) to run the docker 
+You can also use [Singularity](http://singularity.lbl.gov/) to run the docker
 image from DockerHub. The following commands require the development branch (post release 2.2)
 or release 2.3.
 
