@@ -16,6 +16,8 @@ https://docs.google.com/spreadsheets/d/11an55u9t2TAf0EV2pHN0vOd8Ww2Gie-tHp9xGULh
 
 ### 1. To execute demo with Docker
 
+Dockerfiles are included for a matrix of distributions and ANTs and FSL versions. The images are hosted on https://hub.docker.com/r/kaczmarj/regtests/tags/.
+
 First download the image
 ```bash
 docker pull repronim/simple_workflow:latest
